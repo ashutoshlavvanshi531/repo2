@@ -1,57 +1,248 @@
 package org.test;
 
 import org.demo.Main;
+import org.demo1.SumTask;
 
 import java.util.*;
+import java.util.concurrent.ForkJoinPool;
 
 public class Test {
-    public static void main(String[] args) {
 
+
+
+
+    public static void main(String[] args) {
         Test main = new Test();
 
 
+
+
+
+
+
+
+
+
+
+
+//        main.numberOfChocolates();
 //        main.subArrayCheck();
 //        main.subArraySum();
 //        main.kadansAlgo();
 //        main.minimumJumps();
 //        main.arrayIntersection();
-        main.kadansAlgorithm();
+//        main.kadansAlgorithm();
+//        main.rightShiftByTwoPlaces();
+//        main.threeSumBrute();
+//        main.moveZerosTowardsEnd();
+//        main.moveZerosTowardsEndWithInsertionOrder();
+
+    }
+
+    public void testString(String str){
+        str = str+" Lavvanshi";
+    }
+
+    public void testArray(int[] ar){
+
+        int temp = ar[0];
+        ar[0] = ar[1];
+        ar[1] = temp;
+        return;
+    }
+
+    public void numberOfChocolates(){
 
 
+        int chocolates = 16;
+        int price = 2;
+
+        int initialChocolates = chocolates/price;
+
+        int totalChocolates = buyChocolatesFromRapper(initialChocolates);
+
+        System.out.println("Total chocolates can be bought are .. "+totalChocolates);
+
+    }
+
+    public int buyChocolatesFromRapper(int initialChocolates){
+        if (initialChocolates <  1) return 0;
+        return initialChocolates + buyChocolatesFromRapper(initialChocolates/2);
+    }
+
+    public void forkJoinPoolProcessing(){
+
+        int[] userData = new int[100]; // Simulated user data
+        for (int i = 0; i < userData.length; i++) {
+            userData[i] = i + 1; // Fill with sample data
+        }
+        Main main = new Main();
+
+        ForkJoinPool pool = new ForkJoinPool();
+        SumTask task = new SumTask(userData,0,userData.length);
+        int result = pool.invoke(task);
+
+
+    }
+
+    public void moveZerosTowardsEndWithInsertionOrder(){
+//        int[] ar = {2, 0, 3, 0, 1, 0, 4, 0, 5};
+        int[] ar = {0, 1, 0, 3, 12, 0, 5};
+
+        // if startingIndex value is zero
+        // then start
+        System.out.println("Keeping the insertion order preserved while moving zeros to end...1");
+        int ptr1 = 0;
+        int ptr2 = ptr1;
+
+       while (ar[ptr1] != 0){
+           ptr1++;
+       }
+       ptr2 = ptr1+1;
+
+        while (ptr2 < ar.length){
+
+            if (ar[ptr2] != 0 ){
+                ar[ptr1++] = ar[ptr2];
+                ar[ptr2] = 0;
+            }
+            ptr2++;
+        }
+
+        for (int value: ar)
+            System.out.print(" "+value);
+    }
+
+    public void moveZerosTowardsEnd(){
+        int[] ar = {2, 0, 3, 0, 1, 0, 4, 0, 5};
+
+        int index = 0;
+        int zerosPos = ar.length-1;
+
+        while (ar[zerosPos] == 0){
+            zerosPos--;
+        }
+        while (index < zerosPos){
+            if (ar[index] == 0){
+                int temp = ar[index];
+                ar[index] = ar[zerosPos];
+                ar[zerosPos--] = 0;
+                while (ar[zerosPos] == 0){
+                    zerosPos--;
+                }
+            }
+            index++;
+        }
+
+        for (int value: ar){
+            System.out.print(" "+value);
+        }
+    }
+
+
+    public void threeSumBetter(){
+        int[] ar = {4, -4, 2, -2, 0, 0, 1, -1};
+        int targetSum = 0;
+
+        for (int i=0; i<ar.length-2; i++){
+            int sum = ar[i] + ar[i+1];
+            for (int j = i+1; j < ar.length-1; j++) {
+
+            }
+        }
+    }
+    public void threeSumBrute(){
+
+        int[] ar = {4, -4, 2, -2, 0, 0, 1, -1};
+        int targetSum = 0;
+        for (int i=0; i<ar.length-2; i++){
+            for (int j = i+1; j < ar.length-1; j++) {
+                for(int k = j+1; k < ar.length; k++) {
+                    if (ar[i]+ar[j]+ar[k]==targetSum)
+                    {
+                        System.out.println(ar[i]+" "+ar[j]+" "+ar[k]);
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    public void test(){
+        int ar[] = {1,2,3,4,5};
+        int k = 2;
+        int n = ar.length;
+        int temp[] = new int[ar.length];
+        for (int i=0; i<k; i++){
+            {
+                temp[i] = ar[n-k+i];
+            }
+        }
+
+        for (int i = k; i < n; i++) {
+            temp[i] = ar[i-k];
+        }
+
+        for (int value: temp)
+            System.out.println(value);
+    }
+
+    public void rightShiftByTwoPlaces(){
+
+        System.out.println("Rotate array to the right by k places");
+        int ar[] = {1,2,3,4,5};
+
+        int k = 2;
+        int n = ar.length;
+
+
+//        ar = reverse(ar,0,n-1);
+//        ar = reverse(ar, 0, n-k-1);
+//        ar = reverse(ar,n-k, n-1);
+
+
+        ar = reverse(ar, 0, n-k-1);
+        ar = reverse(ar,n-k, n-1);
+        ar = reverse(ar,0,n-1);
+
+        for (var value: ar){
+            System.out.print(" "+value);
+        }
+
+    }
+
+    public int[] reverse(int[] ar,int start, int end){
+
+        while(start<end){
+
+            int temp = ar[start];
+            ar[start++] = ar[end];
+            ar[end--] = temp;
+        }
+        return ar;
     }
 
     public void kadansAlgorithm(){
 
         int[] ar = {-2,-3,4,-1,-2,1,5,-3};
 
-        int left = 0;
-        int right = 1;
+        int sum = 0;
         int maxSum = ar[0];
-        int sum = ar[0];
-        // sum, maxSum,
-        // if sum < 0 if ar[i] > sum = ar[i]
+        int right = 1;
 
         while (right < ar.length){
-
-//            int[] ar = {-2,-3,4,-1,-2,1,5,-3};
-            System.out.println("sum + ar[rigth] "+(sum + ar[right]));
-            if ((sum + ar[right]) >= 0){
-                System.out.println("right "+ar[right]);
-                sum += ar[right];
-                System.out.println("sum "+sum);
+            sum = sum + ar[right];
+            if (sum > maxSum){
+                maxSum = sum;
             }
-            else{
-                if (ar[right] > maxSum){
-                    maxSum = ar[right];
-                }
-                else{
-                    sum = ar[right+1];
-                }
+            if (sum < 0){
+                sum = 0;
             }
-            if (sum > maxSum) maxSum = sum;
-            ++right;
+            right++;
         }
+
         System.out.println("max sum value is "+maxSum);
+
     }
     public void arrayIntersection(){
 //        int ar1[] = {1, 2, 2, 1};
